@@ -26,15 +26,17 @@ firstImage = Image.open(path + '/' + myFileNames[0])
 
 compositeImage = Image.new("RGB", (width, len(myFileNames) * height), "red")
 
-n = 0
+pixelsDown = 0
 
 for fileName in myFileNames:
     screenshotImage = Image.open(path + '/' + fileName)
-    if n > 0:
+    if pixelsDown > 0:
         screenshotImage = screenshotImage.crop((0, iOSHeader, width, height))
-        compositeImage.paste(screenshotImage, (0, n * (height - iOSHeader)))
+        compositeImage.paste(screenshotImage, (0, pixelsDown))
+        pixelsDown = pixelsDown + height - iOSHeader
     else:
         compositeImage.paste(screenshotImage, (0, 0))
-    n = n + 1
+        pixelsDown = height
 
+compositeImage = compositeImage.crop((0, 0, width, pixelsDown))
 compositeImage.save(path + '/' + "composite.PNG", "PNG")
