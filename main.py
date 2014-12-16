@@ -1,14 +1,3 @@
-from os import listdir
-import re
-from PIL import Image
-from PIL import ImageChops
-
-# config variables
-path = '/Users/ellie/Desktop/images'
-iOSHeader = 129 # this is the height of the iOS header to be removed
-overlapStripSize = 60
-ignoredFiles = ['.DS_Store', 'composite.PNG']
-
 def smartnumbers(n): # strips anything that is NaN from the filename
     matches = re.findall('\d+', n)
     if 0 == len(matches): return n
@@ -34,29 +23,31 @@ compositeImage = Image.new("RGB", (width, len(myFileNames) * height), "red")
 pixelsDown = 0
 
 for fileName in myFileNames:
-    screenshotImage = Image.open(path + '/' + fileName)
-    if pixelsDown > 0:
-        screenshotImage = screenshotImage.crop((0, iOSHeader, width, height))
+    screenshotImage = Image.open(path + '/' + fileName) # opens the current image file, creates a new object out of it and calls it screenshotImage
 
-
-        found = False
-        overlap = 0
-        topstrip = screenshotImage.crop((0, 0, width, overlapStripSize))
-        while found == False and height > overlap:
-            bottomstrip = compositeImage.crop((0, pixelsDown - overlapStripSize - overlap , width, pixelsDown - overlap))
-
-            if pixelsAreEqual(topstrip, bottomstrip):
-                found = True
-                overlap = overlap + overlapStripSize
-            else: overlap = overlap + 1
-
-        if found:
-            pixelsDown = pixelsDown - overlap
-        compositeImage.paste(screenshotImage, (0, pixelsDown))
-        pixelsDown = pixelsDown + height - iOSHeader
-    else:
+    if 0 == pixelsDown: # pastes the first image in the series to the top of our canvas
         compositeImage.paste(screenshotImage, (0, 0))
         pixelsDown = height
+        continue
 
-compositeImage = compositeImage.crop((0, 0, width, pixelsDown))
+    screenshotImage = screenshotImage.crop((0, iOSHeader, width, height)) # crops the header off the succeding screenshots
+
+    foundMatchingStrip = False
+    overlap = 0
+    topstrip = screenshotImage.crop((0, 0, width, overlapStripSize))
+    while not foundMatchingStrip and overlap < height:
+        bottomstrip = compositeImage.crop((0, pixelsDown - overlapStripSize - overlap , width, pixelsDown - overlap))
+
+        if not pixelsAreEqual(topstrip, bottomstrip):
+          overlap = overlap + 1
+        else:
+            foundMatchingStrip = True
+            overlap = overlap + overlapStripSize
+
+    if foundMatchingStrip:
+        pixelsDown = pixelsDown - overlap
+    compositeImage.paste(screenshotImage, (0, pixelsDown))
+    pixelsDown = pixelsDown + height - iOSHeader
+
+compositeImage = compositeImage.crop((0, 0, width, pixelsDown)) # crops the canvas to the correct size now that all screenshots have been placed and cropped appropriately
 compositeImage.save(path + '/' + "composite.PNG", "PNG")
