@@ -25,6 +25,7 @@ def pixelsAreEqual(im1,im2): # compares two images to see if there is duplicate 
     return ImageChops.difference(im1, im2).getbbox() is None
 
 myFileNames = list_screenshots(path)
+if 0 == len(myFileNames): raise Exception('there aren\'t any images in your images folder, dingus')
 
 firstImage = Image.open(path + '/' + myFileNames[0])
 (width, height) = firstImage.size
