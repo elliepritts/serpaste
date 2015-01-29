@@ -1,3 +1,14 @@
+from os import listdir
+import re
+from PIL import Image
+from PIL import ImageChops
+
+# config variables
+path = '/Users/ellie/Desktop/images'
+iOSHeader = 129 # this is the height of the iOS header to be removed
+overlapStripSize = 60
+ignoredFiles = ['.DS_Store', 'composite.PNG']
+
 def smartnumbers(n): # strips anything that is NaN from the filename
     matches = re.findall('\d+', n)
     if 0 == len(matches): return n
