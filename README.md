@@ -1,12 +1,11 @@
-serpaste
-========
+# serpaste
 
 ```
 
                   /((((((\\\\
           =======((((((((((\\\\\
                ((           \\\\\\\
-               ( (*    _/      \\\\\\\
+               ( (`    _/      \\\\\\\
                  \    /  \      \\\\\\________________
                   |  |   |       </                  ((\\\\
                   o_|   /        /                      \ \\\\    \\\\\\\
@@ -24,27 +23,24 @@ serpaste
                                              
                                              
 ```
+
 Serpaste is a tool I created to speed up workflow at my production artist gig. I use this tool to gather screenshots of lengthy menus, like the settings menu on the iPhone, and create one simple image of the entire thing. This process normally would take around 15 minutes to do with photoshop from scratch. Now it only takes a few seconds :) 
 
-<p><b>Setup</b></p>
+### Setup
 
-<ol>
-  <li>Download serpaste.py and <a href="https://pip.pypa.io/en/latest/installing.html">get-pip.py</a> to desktop.</li>
-  <li>Create a folder titled “images” on the desktop.</li>
-  <li>Open serpaste.py and modify line 7 to reflect your user name.</li>
-  <li>Open Terminal and type the following command: <i>cd ~/Desktop</i> and press enter.</li>
-  <li>Then type the following command: <i>sudo python get-pip.py</i> You will be prompted to enter your account password.</li>
-  <li>Lastly, enter the following command: <i>sudo pip install Pillow</i>.</li>
-</ol>
+1. Download serpaste.py and [get-pip.py](https://pip.pypa.io/en/latest/installing.html) to desktop.
+1. Create a folder titled “images” on the desktop.
+1. Open serpaste.py and modify line 7 to reflect your user name.
+1. Open Terminal and type the following command: `cd ~/Desktop` and press enter.
+1. Then type the following command: `sudo python get-pip.py` You will be prompted to enter your account password.
+1. Lastly, enter the following command: `sudo pip install Pillow`.
 
 
-<p><b>Application</b></p>
+### Application
 
-<ol>
-  <li>Import iOS screenshots directly to the “images” folder you created. Do not resize or rename the files.</li>
-  <li>Open Terminal, type: <i>Python</i> and then drag the serpaste.py folder into terminal. Then press enter to run the code.</li>
-  <li>Open your "images" folder and voila! There is a new image called "composite.PNG" with all your screenshots magically stitched together.
-</ol>
+1. Import iOS screenshots directly to the `images` folder you created. Do not resize or rename the files.
+1. Open Terminal, type: `Python` and then drag the serpaste.py folder into terminal. Then press enter to run the code.
+1. Open your "images" folder and voila! There is a new image called `composite.PNG` with all your screenshots magically stitched together.
 
-
-Demo video! http://youtu.be/LgxfdE7qAeM
+### Demo video!
+You can see me walk through these steps in my demo video: http://youtu.be/LgxfdE7qAeM
